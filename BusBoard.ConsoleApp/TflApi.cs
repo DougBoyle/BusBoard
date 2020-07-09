@@ -4,7 +4,7 @@ using System.Linq;
 using RestSharp;
 
 namespace BusBoard.ConsoleApp {
-    public class TflReader {
+    public class TflApi {
         RestClient Client = new RestClient("https://api.tfl.gov.uk");
         
         public void GetPredictions(string stopCode) {
