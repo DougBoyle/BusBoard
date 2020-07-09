@@ -1,4 +1,4 @@
-﻿namespace BusBoard.ConsoleApp {
+namespace BusBoard.Api {
     public class ArrivalPrediction {
         public string DestinationName { get; set; }
         public string StationName { get; set; }

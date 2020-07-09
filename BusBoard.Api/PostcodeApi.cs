@@ -3,7 +3,7 @@ using System.Data;
 using System.Net;
 using RestSharp;
 
-namespace BusBoard.ConsoleApp {
+namespace BusBoard.Api {
     public class PostcodeApi {
         RestClient Client = new RestClient("http://api.postcodes.io");
 

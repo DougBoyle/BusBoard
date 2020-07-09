@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using RestSharp;
 
-namespace BusBoard.ConsoleApp {
+namespace BusBoard.Api {
     public class TflApi {
         RestClient Client = new RestClient("https://api.tfl.gov.uk");
         
