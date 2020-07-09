@@ -9,17 +9,10 @@ namespace BusBoard.ConsoleApp {
         
         public void GetPredictions(string stopCode) {
             var request = new RestRequest($"StopPoint/{stopCode}/Arrivals", Method.GET);
-            var ar = Client.Execute<List<ArrivalPrediction>>(request).Data;
-          
-            ar = ar.OrderBy(x => x.TimeToStation).ToList();
-            var i = 0;
-            foreach (var obj in ar) {
-                i++;
-                Console.WriteLine(obj);
-                if (i == 5) {
-                    break;
-                }
-            }
+            var arrivalList = Client.Execute<List<ArrivalPrediction>>(request).Data;
+
+            arrivalList.OrderBy(arrival => arrival.TimeToStation).Take(5).ToList()
+                .ForEach(arrival => Console.WriteLine(arrival));
         }
     }
 }
