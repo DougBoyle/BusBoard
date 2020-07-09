@@ -12,7 +12,7 @@ namespace BusBoard.Web.Controllers
   {
     TflReader tflApi = new TflReader();
     PostcodeApi coordsApi = new PostcodeApi();
-    
+
     public ActionResult Index()
     {
       return View();
@@ -25,6 +25,14 @@ namespace BusBoard.Web.Controllers
       // Write code here to populate the view model with info from the APIs.
       // Then modify the view (in Views/Home/BusInfo.cshtml) to render upcoming buses.
       var coords = coordsApi.getCoords(selection.Postcode);
+
+      if (coords == null) {
+        Console.WriteLine("Error");
+        ViewBag.Message = "Postcode not recognised";
+      //  return View();
+      return RedirectToAction("Index");
+      }
+      
       var stops = tflApi.GetStopCodes(coords);
       var stopData = stops.ToDictionary(
         stop => stop, stop => tflApi.GetPredictions(stop.NaptanId));
@@ -36,7 +44,6 @@ namespace BusBoard.Web.Controllers
     public ActionResult About()
     {
       ViewBag.Message = "Information about this site";
-
       return View();
     }
 
