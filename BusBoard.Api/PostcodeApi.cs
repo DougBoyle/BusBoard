@@ -7,7 +7,7 @@ namespace BusBoard.Api {
     public class PostcodeApi {
         RestClient Client = new RestClient("http://api.postcodes.io");
 
-        public Coords GetCoordsIfExist(string postcode) {
+        public Coords GetCoordsIfExists(string postcode) {
             var request = new RestRequest("postcodes/{postcode}", Method.GET);
             request.AddUrlSegment("postcode", postcode);
             var result = Client.Execute<PostcodeResults>(request);

@@ -10,11 +10,14 @@ namespace BusBoard.Web.Controllers
 {
   public class HomeController : Controller
   {
-    TflReader tflApi = new TflReader();
+    TflApi tflApi = new TflApi();
     PostcodeApi coordsApi = new PostcodeApi();
 
-    public ActionResult Index()
-    {
+    public ActionResult Index() {
+      if (TempData["NoPostcode"] != null) {
+        ViewBag.Message = "Postcode not recognised";
+        TempData.Remove("NoPostcode");
+      }
       return View();
     }
 
@@ -24,13 +27,11 @@ namespace BusBoard.Web.Controllers
       // Add some properties to the BusInfo view model with the data you want to render on the page.
       // Write code here to populate the view model with info from the APIs.
       // Then modify the view (in Views/Home/BusInfo.cshtml) to render upcoming buses.
-      var coords = coordsApi.getCoords(selection.Postcode);
+      var coords = coordsApi.GetCoordsIfExists(selection.Postcode);
 
       if (coords == null) {
-        Console.WriteLine("Error");
-        ViewBag.Message = "Postcode not recognised";
-      //  return View();
-      return RedirectToAction("Index");
+        TempData["NoPostcode"] = true; 
+        return RedirectToAction("Index");
       }
       
       var stops = tflApi.GetStopCodes(coords);

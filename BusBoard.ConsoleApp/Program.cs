@@ -13,13 +13,12 @@ namespace BusBoard.ConsoleApp
       var coordsApi = new PostcodeApi();
 
       var postcode = Console.ReadLine();
-      var coords = coordsApi.GetCoordsIfExist(postcode);
+
+      var coords = coordsApi.GetCoordsIfExists(postcode);
       if (coords == null) {
         Console.WriteLine($"Postcode not recognised: {postcode}");
         return;
       }
-
-
       var stops = tflApi.GetStopCodes(coords);
       if (stops.Count == 0) {
         Console.WriteLine("No bus stops nearby");

@@ -1,4 +1,5 @@
-﻿@model BusBoard.Web.ViewModels.BusInfo
+﻿@using System.Net.Configuration
+@model BusBoard.Web.ViewModels.BusInfo
 @{
   ViewBag.Title = "Bus Information";
 }
@@ -8,9 +9,15 @@
 <div class="row">
     <p>You entered postcode @Model.PostCode</p>
 </div>
-@foreach (var busStop in @Model.StopData) {
+@if (Model.StopData.Count == 0) {
+    <div class="row">No bus stops nearby</div>
+}
+@foreach (var busStop in Model.StopData) {
     <div class="row">@busStop.Key.CommonName</div>
-    foreach (var arrival in @busStop.Value) {
+    if (busStop.Value.Count == 0) {
+        <div class="row">No buses expected at this stop</div>
+    }
+    foreach (var arrival in busStop.Value) {
         <div class="row">@arrival</div>
     }          
     <br>
