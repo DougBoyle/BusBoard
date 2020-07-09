@@ -8,3 +8,10 @@
 <div class="row">
     <p>You entered postcode @Model.PostCode</p>
 </div>
+@foreach (var busStop in @Model.StopData) {
+    <div class="row">@busStop.Key.CommonName</div>
+    foreach (var arrival in @busStop.Value) {
+        <div class="row">@arrival</div>
+    }          
+    <br>
+}

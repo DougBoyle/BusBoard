@@ -26,7 +26,7 @@ namespace BusBoard.ConsoleApp
       }
       foreach (var stop in stops) {
         Console.WriteLine($"At {stop.CommonName}:");
-        tflApi.GetPredictions(stop.NaptanId);
+        tflApi.GetPredictions(stop.NaptanId) .ForEach(arrival => Console.WriteLine(arrival));
         Console.WriteLine();
       }
     }

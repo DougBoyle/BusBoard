@@ -7,12 +7,11 @@ namespace BusBoard.Api {
     public class TflApi {
         RestClient Client = new RestClient("https://api.tfl.gov.uk");
         
-        public void GetPredictions(string stopCode) {
+        public List<ArrivalPrediction> GetPredictions(string stopCode) {
             var request = new RestRequest($"StopPoint/{stopCode}/Arrivals", Method.GET);
             var arrivalList = Client.Execute<List<ArrivalPrediction>>(request).Data;
 
-            arrivalList.OrderBy(arrival => arrival.TimeToStation).Take(5).ToList()
-                .ForEach(arrival => Console.WriteLine(arrival));
+            return arrivalList.OrderBy(arrival => arrival.TimeToStation).Take(5).ToList();
         }
 
         public List<StopId> GetStopCodes(Coords coords) {
