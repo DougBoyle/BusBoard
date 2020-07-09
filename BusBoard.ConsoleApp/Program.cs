@@ -17,6 +17,7 @@ namespace BusBoard.ConsoleApp
         return;
       }
 
+
       var stops = tflApi.GetStopCodes(coords);
       if (stops.Count == 0) {
         Console.WriteLine("No bus stops nearby");
