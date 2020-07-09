@@ -2,13 +2,13 @@
 
 namespace BusBoard.ConsoleApp {
     public class ArrivalPrediction {
-        public string destinationName { get; set; }
-        public string stationName { get; set; }
-        public int timeToStation { get; set; }
+        public string DestinationName { get; set; }
+        public string StationName { get; set; }
+        public int TimeToStation { get; set; }
 
         public override string ToString() {
-            var t = TimeSpan.FromSeconds(timeToStation);
-            return $"Bus to {destinationName} arrives in {t.ToString("m':'ss")} minutes";
+            var t = TimeSpan.FromSeconds(TimeToStation);
+            return $"Bus to {DestinationName} arrives in {t.ToString("m':'ss")} minutes";
         }
     }
 }
