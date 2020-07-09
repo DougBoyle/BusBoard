@@ -11,7 +11,7 @@ namespace BusBoard.ConsoleApp
       var coordsApi = new PostcodeApi();
 
       var postcode = Console.ReadLine();
-      var coords = coordsApi.getCoords(postcode);
+      var coords = coordsApi.GetCoordsIfExist(postcode);
       if (coords == null) {
         Console.WriteLine($"Postcode not recognised: {postcode}");
         return;
