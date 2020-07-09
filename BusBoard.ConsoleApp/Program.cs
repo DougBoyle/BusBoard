@@ -10,6 +10,12 @@ namespace BusBoard.ConsoleApp
   {
     static void Main(string[] args)
     {
+      var api = new TflReader();
+      
+      Console.Write("Enter stop code: ");
+      var code = Console.ReadLine();
+      api.getPredictions("490008660N");
+     // api.getPredictions(code);
     }
   }
 }
