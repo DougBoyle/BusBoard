@@ -13,7 +13,7 @@
     <div class="row">No bus stops nearby</div>
 }
 @foreach (var busStop in Model.StopData) {
-    <div class="row">Bus stop: @busStop.Key.CommonName</div>
+    <div class="row">Bus stop: @busStop.Key.CommonName (@((int)busStop.Key.Distance)m)</div>
     if (busStop.Value.Count == 0) {
         <div class="row">No buses expected at this stop.</div>
     }

@@ -14,14 +14,14 @@ namespace BusBoard.Api {
             return arrivalList.OrderBy(arrival => arrival.TimeToStation).Take(5).ToList();
         }
 
-        public List<StopId> GetStopCodes(Coords coords) {
+        public List<StopId> GetStopCodes(Coords coords, int r = 800, int maxStops = 2) {
             // NaptanOnstreetBusCoachStopPair, NaptanOnstreetBusCoachStopCluster, NaptanPublicBusCoachTram
             var request = new RestRequest($"StopPoint?stopTypes=NaptanPublicBusCoachTram&modes=bus", Method.GET);
             request.AddQueryParameter("lat", coords.Latitude.ToString());
             request.AddQueryParameter("lon", coords.Longitude.ToString());
-            request.AddQueryParameter("radius", "800");
+            request.AddQueryParameter("radius", r.ToString());
             var result = Client.Execute<BusStopResults>(request).Data.StopPoints;
-           return result.OrderBy(x => x.Distance).Take(2).ToList();
+            return result.OrderBy(x => x.Distance).Take(maxStops).ToList();
         }
     }
 }

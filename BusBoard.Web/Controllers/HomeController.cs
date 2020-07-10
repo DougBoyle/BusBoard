@@ -20,18 +20,37 @@ namespace BusBoard.Web.Controllers
         ViewBag.Message = "Postcode not recognised";
         TempData.Remove("NoPostcode");
       }
-      return View();
+      Console.WriteLine("Reset");
+      return View(new PostcodeSelection() {MaxStops = 2, Radius = 800});
+    }
+    
+    public ActionResult IndexWithPrefs(PostcodeSelection selection) {
+      Session["stops"] = null;
+      if (TempData["NoPostcode"] != null) {
+        ViewBag.Message = "Postcode not recognised";
+        TempData.Remove("NoPostcode");
+      }
+      return View("Index", selection);
     }
 
     [HttpGet]
     public ActionResult BusInfo(PostcodeSelection selection) {
+      Console.WriteLine(selection.Radius);
+      Console.WriteLine(selection.MaxStops);
+      if (selection.Radius == 0) {
+        selection.Radius = 800;
+      }
+
+      if (selection.MaxStops == 0) {
+        selection.MaxStops = 2;
+      }
       if (Session["stops"] == null) {
         var coords = coordsApi.GetCoordsIfExists(selection.Postcode);
         if (coords == null) {
           TempData["NoPostcode"] = true;
-          return RedirectToAction("Index");
+          return RedirectToAction("IndexWithPrefs", selection);
         }
-        Session["stops"] = tflApi.GetStopCodes(coords);
+        Session["stops"] = tflApi.GetStopCodes(coords, selection.Radius, selection.MaxStops);
       }
 
       var stopData = new Dictionary<StopId, List<Destination>>();
@@ -44,10 +63,6 @@ namespace BusBoard.Web.Controllers
         }
         stopData[stop] = destList;
       }
-      
-      
-    //  var stopData = ((List<StopId>)Session["stops"]).ToDictionary(
-     //   stop => stop, stop => tflApi.GetPredictions(stop.NaptanId));
       
       var info = new BusInfo(selection.Postcode, stopData);
       

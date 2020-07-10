@@ -14,11 +14,20 @@
         {
             <fieldset>
                 <legend>Post Code:</legend>
-                @Html.TextBoxFor(m => m.Postcode)
-
-                <input type="submit" value="Get Bus Info" />
+                <div class="row">
+                    @Html.TextBoxFor(m => m.Postcode)
+                    <input type="submit" value="Get Bus Info" />
+                </div><p>@ViewBag.Message</p><br/>
+                <div class="row">
+                    Max number of stops:
+                    @Html.TextBoxFor(m => m.MaxStops, new { type = "number", min=1, max=5})
+                </div>
+                <div class="row">
+                  Max distance to stop (m):
+                  @Html.TextBoxFor(m => m.Radius, new { type = "number", min=100, max=1000, step=100})
+                </div>
+                
             </fieldset>
         }
     </div>
 </div>
-<p>@ViewBag.Message</p>
