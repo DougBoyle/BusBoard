@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using System.Web.UI;
 using BusBoard.Web.Models;
 using BusBoard.Web.ViewModels;
 using BusBoard.Api;
@@ -33,8 +34,20 @@ namespace BusBoard.Web.Controllers
         Session["stops"] = tflApi.GetStopCodes(coords);
       }
 
-      var stopData = ((List<StopId>)Session["stops"]).ToDictionary(
-        stop => stop, stop => tflApi.GetPredictions(stop.NaptanId));
+      var stopData = new Dictionary<StopId, List<Destination>>();
+      foreach (var stop in (List<StopId>)Session["stops"]) {
+        var destList = new List<Destination>();
+        var predictions = tflApi.GetPredictions(stop.NaptanId);
+        var a = predictions.GroupBy(arrival => arrival.DestinationName).ToList();
+        foreach (var dest in a) {
+          destList.Add(new Destination() {DestinationName = dest.Key, Arrivals = dest.ToList()});
+        }
+        stopData[stop] = destList;
+      }
+      
+      
+    //  var stopData = ((List<StopId>)Session["stops"]).ToDictionary(
+     //   stop => stop, stop => tflApi.GetPredictions(stop.NaptanId));
       
       var info = new BusInfo(selection.Postcode, stopData);
       

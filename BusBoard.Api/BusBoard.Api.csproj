@@ -48,6 +48,7 @@
     <Compile Include="jsonParsing\ArrivalPrediction.cs" />
     <Compile Include="jsonParsing\BusStopResults.cs" />
     <Compile Include="jsonParsing\Coords.cs" />
+    <Compile Include="jsonParsing\Destination.cs" />
     <Compile Include="jsonParsing\PostcodeResults.cs" />
     <Compile Include="jsonParsing\StopId.cs" />
     <Compile Include="PostcodeApi.cs" />

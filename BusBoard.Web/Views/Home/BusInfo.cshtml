@@ -13,9 +13,9 @@
     <div class="row">No bus stops nearby</div>
 }
 @foreach (var busStop in Model.StopData) {
-    <div class="row">@busStop.Key.CommonName</div>
+    <div class="row">Bus stop: @busStop.Key.CommonName</div>
     if (busStop.Value.Count == 0) {
-        <div class="row">No buses expected at this stop</div>
+        <div class="row">No buses expected at this stop.</div>
     }
     foreach (var arrival in busStop.Value) {
         <div class="row">@arrival</div>
