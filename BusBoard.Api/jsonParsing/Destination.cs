@@ -7,9 +7,9 @@ namespace BusBoard.Api {
 
         public override string ToString() {
             if (Arrivals.Count == 1) {
-                return $"Bus to {DestinationName} arrives in {Arrivals[0].TimeToStation / 60} minutes.";
+                return $"Bus to <b>{DestinationName}</b> arrives in {Arrivals[0].TimeToStation / 60} minutes.";
             }
-            var s = $"Buses to {DestinationName} arrive in ";
+            var s = $"Buses to <b>{DestinationName}</b> arrive in ";
             for (var i = 0; i < Arrivals.Count; i++) {
                 s += Arrivals[i].TimeToStation / 60;
                 if (i == Arrivals.Count - 1) {

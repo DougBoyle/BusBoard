@@ -13,16 +13,17 @@
         @using (Html.BeginForm("BusInfo", "Home", FormMethod.Get))
         {
             <fieldset>
-                <legend>Post Code:</legend>
-                <div class="row">
-                    @Html.TextBoxFor(m => m.Postcode)
-                    <input type="submit" value="Get Bus Info" />
-                </div><p>@ViewBag.Message</p><br/>
-                <div class="row">
+                <legend style="font-size:40px">Post Code:</legend>
+                <div class="row" style="font-size:20px">
+                    @Html.TextBoxFor(m => m.Postcode, new {style="font-size:20px", maxlength=8})
+                    <input type="submit" value="Get Bus Info" style="font-size:20px"/>
+                    <span style="padding-left:20px">@ViewBag.Message</span>
+                </div><br/>
+                <div class="row" style="font-size:16px">
                     Max number of stops:
                     @Html.TextBoxFor(m => m.MaxStops, new { type = "number", min=1, max=5})
                 </div>
-                <div class="row">
+                <div class="row" style="font-size:16px;padding-top:5px">
                   Max distance to stop (m):
                   @Html.TextBoxFor(m => m.Radius, new { type = "number", min=100, max=1000, step=100})
                 </div>

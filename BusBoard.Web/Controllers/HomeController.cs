@@ -20,14 +20,13 @@ namespace BusBoard.Web.Controllers
         ViewBag.Message = "Postcode not recognised";
         TempData.Remove("NoPostcode");
       }
-      Console.WriteLine("Reset");
       return View(new PostcodeSelection() {MaxStops = 2, Radius = 800});
     }
     
     public ActionResult IndexWithPrefs(PostcodeSelection selection) {
       Session["stops"] = null;
       if (TempData["NoPostcode"] != null) {
-        ViewBag.Message = "Postcode not recognised";
+        ViewBag.Message = "&nbsp;&nbsp;&nbsp;&nbsp;Postcode not recognised";
         TempData.Remove("NoPostcode");
       }
       return View("Index", selection);
@@ -35,8 +34,6 @@ namespace BusBoard.Web.Controllers
 
     [HttpGet]
     public ActionResult BusInfo(PostcodeSelection selection) {
-      Console.WriteLine(selection.Radius);
-      Console.WriteLine(selection.MaxStops);
       if (selection.Radius == 0) {
         selection.Radius = 800;
       }

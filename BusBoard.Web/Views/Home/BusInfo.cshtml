@@ -4,21 +4,21 @@
   ViewBag.Title = "Bus Information";
 }
 
-<h2>BusInfo</h2>
+<h1>BusInfo</h1>
 
-<div class="row">
+<div class="row" style="font-size:20px">
     <p>You entered postcode @Model.PostCode</p>
 </div>
 @if (Model.StopData.Count == 0) {
-    <div class="row">No bus stops nearby</div>
+    <div class="row" style="font-size:20px">No bus stops nearby</div>
 }
 @foreach (var busStop in Model.StopData) {
-    <div class="row">Bus stop: @busStop.Key.CommonName (@((int)busStop.Key.Distance)m)</div>
+    <div class="row" style="font-size:24px">Bus stop: @busStop.Key.CommonName (@((int)busStop.Key.Distance)m)</div>
     if (busStop.Value.Count == 0) {
-        <div class="row">No buses expected at this stop.</div>
+        <div class="row" style="font-size:20px">No buses expected at this stop.</div>
     }
     foreach (var arrival in busStop.Value) {
-        <div class="row">@arrival</div>
+        <div class="row" style="font-size:20px">@Html.Raw(arrival)</div>
     }          
     <br>
 }
